@@ -93,6 +93,6 @@ class RegistrationController(object):
 class LogoutController(object):
 
     @falcon.before(auth_required)
-    def on_get(self, req, resp):
+    def on_post(self, req, resp):
 
         remove_session(req.cookies['user_session'])

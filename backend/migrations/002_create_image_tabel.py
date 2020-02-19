@@ -1,5 +1,8 @@
-from peewee import Model, CharField, ForeignKeyField
-
+from peewee import (
+    Model, CharField,
+    ForeignKeyField, IntegerField
+)
+from playhouse.postgres_ext import ArrayField
 
 def migrate(migrator, database, fake=False, **kwargs):
 
@@ -11,7 +14,8 @@ def migrate(migrator, database, fake=False, **kwargs):
 
         name = CharField(null=True)
         url = CharField(unique=True)
-        owner = ForeignKeyField(User, backref='images')
+        owner_id = ForeignKeyField(User, backref='images')
+        users = ArrayField(IntegerField)
 
 def rollback(migrator, database, fake=False, **kwargs):
     migrator.remove_model('image')
